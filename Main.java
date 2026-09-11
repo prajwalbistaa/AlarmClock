@@ -1,11 +1,12 @@
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
 
 public class Main {
@@ -18,16 +19,14 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 12));
 
-        JPanel panel = new JPanel(new GridLayout(3, 1, 5, 8));
-        panel.add(new JLabel("Set Time :"));
+        JPanel panel = new JPanel(new GridLayout(4, 1, 5, 8));
+        panel.add(new JLabel("Set Alarm Time :"));
 
         JPanel daysPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 4, 0));
         daysPanel.add(new JLabel("Days:"));
-        ButtonGroup daysGroup = new ButtonGroup();
         String[] days = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
         for (String day : days) {
-            JRadioButton dayButton = new JRadioButton(day);
-            daysGroup.add(dayButton);
+            JCheckBox dayButton = new JCheckBox(day);
             daysPanel.add(dayButton);
         }
         panel.add(daysPanel);
@@ -39,6 +38,11 @@ public class Main {
         timePanel.add(new JComboBox<>(createNumberOptions(0, 59)));
         timePanel.add(new JComboBox<>(new String[] { "AM", "PM" }));
         panel.add(timePanel);
+
+        JButton doneButton = new JButton("Done");
+        doneButton.addActionListener(event -> JOptionPane.showMessageDialog(
+            frame, "Alarm details saved.", "Alarm Clock", JOptionPane.INFORMATION_MESSAGE));
+        panel.add(doneButton);
 
         frame.add(panel);
         frame.pack();
